@@ -15,7 +15,7 @@
 <body>
     <header>
         <nav class="nav-menu">
-            <a class="text-description" href="./tareas.html">
+            <a id="button-Back" class="text-description" href="#">
                 <i class="fa-solid fa-arrow-left"></i> <p>Regresar</p>
             </a>
         </nav>
@@ -37,5 +37,15 @@
     </main>
     <script src="https://kit.fontawesome.com/dfb52525f1.js" crossorigin="anonymous"></script>
     <script src="./js/timer.js"></script>
+    <script>
+        const back = document.getElementById('button-Back');
+        back.onclick =  onBack();
+
+        function onBack(){
+            return function goBack(){
+                window.history.back();
+            }
+        };
+    </script>
 </body>
 </html>
