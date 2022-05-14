@@ -2,8 +2,8 @@ var h1 = document.getElementsByTagName('h1')[0];
 var start = document.getElementsByClassName('title-option__button');
 
 var sec = 0;
-var min = 0;
-var hrs = 1;
+var min = 5;
+var hrs = 0;
 var t;
 
 function tick(){

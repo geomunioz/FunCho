@@ -1,4 +1,14 @@
-window.addEventListener('load', getAllExcersice);
+const valores = window.location.search;
+
+//Creamos la instancia
+const urlParams = new URLSearchParams(valores);
+
+//Accedemos a los valores
+var tipoActividad = urlParams.get('type');
+
+if(!tipoActividad){
+    window.addEventListener('load', getAllExcersice);
+}
 
 async function getAllExcersice(){
     const options = {
@@ -20,7 +30,7 @@ async function getAllExcersice(){
                 //Creacion de elementos
                 const article = document.createElement('article');
                 article.className = 'content-activity';
-                article.onclick = getDetailActivity('../activity.html?type=sport&name='+response[i].name);
+                article.onclick = getDetailActivity('../activity.html?type=sport&name='+response[i].id+'&points=25');
 
                     const contentIcon =  document.createElement('div');
                     contentIcon.className = 'content-activity__icon';
@@ -39,7 +49,7 @@ async function getAllExcersice(){
 
                         const p_points = document.createElement('p');
                         p_points.className = 'activity-details__points';
-                        p_points.textContent = 'Puntos: 45 points' ;
+                        p_points.textContent = 'Puntos: 25 points' ;
                     
                     contentActivity.appendChild(p_title);
                     contentActivity.appendChild(p_points);
@@ -67,3 +77,26 @@ function getDetailActivity(link){
         window.location.href = link;
     }
 }
+
+async function getSport(nameActividad){
+    let exercise;
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com',
+            'X-RapidAPI-Key': '380fed1cf0msh80b081f8501b0cap172456jsn34c4bcc62e14'
+        }
+    };
+    
+    await fetch('https://exercisedb.p.rapidapi.com/exercises/exercise/'+nameActividad, options)
+        .then(response => response.json())
+        .then(response =>{
+            exercise = response;
+            console.log(exercise);
+        })
+        .catch(err => console.error(err));
+
+    return exercise;
+}
+
+export { getSport };

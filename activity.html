@@ -25,18 +25,22 @@
             <section class="activity-description">
                 <div class="description-title">
                     <p class="title">Nombre de Activity</p>
-                    <p class="points">50 pts</p>
+                    <p class="points">25 pts</p>
                 </div>
-                <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora odio, doloribus maxime, aperiam saepe repellendus voluptas similique aut fugiat eum ducimus blanditiis cum nam optio molestiae eligendi perferendis, sapiente ullam.</p>
+                <p id="description-detail" class="description">
+                </p>
             </section>
             <section class="activity-time">
-                <h1 class="time"><time>00:00:00</time></h1>
+                <h1 class="time"><time>00:05:00</time></h1>
                 <button class="title-option__button" onclick="timer()">Iniciar</button>
             </section>
         </div>
     </main>
     <script src="https://kit.fontawesome.com/dfb52525f1.js" crossorigin="anonymous"></script>
     <script src="./js/timer.js"></script>
+    <script type="module" src="./js/getActivity.js"></script>
+    <script type="module" src="./js/clientFood.js"></script>
+    <!-- <script type="module" src="./js/clientSport.js"></script> -->
     <script>
         const back = document.getElementById('button-Back');
         back.onclick =  onBack();

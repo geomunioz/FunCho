@@ -315,11 +315,12 @@ input[type=radio]:checked + .container-member .container-profile{
 
 .content-activity{
     max-width: 340px;
-    height: 80px;
+    max-height: max-content;
     background-color: var(--color-blue-gray3);
     display: flex;
     justify-content: space-between;
-    padding: 12px;
+    align-items: center;
+    padding: 8px;
     border-radius: 4px;
     margin: 20px auto;
 }
@@ -450,6 +451,12 @@ input[type=radio]:checked + .container-member .container-profile{
     padding: 16px;
 }
 
+.activity-description{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
 .description-title{
     display: flex;
     justify-content: space-between;
@@ -468,13 +475,18 @@ input[type=radio]:checked + .container-member .container-profile{
 .description{
     font-size: 1.4em;
     color: var(--color-blue-gray3);
-    margin-top: 16px;
     text-align: justify;
+}
+
+.description img{
+    margin: 40px auto;
+    width: 100%;
+    border-radius: 8px;
 }
 
 .activity-time{
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     flex-direction: column;
 }
