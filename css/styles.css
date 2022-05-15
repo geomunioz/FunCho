@@ -20,6 +20,7 @@
 
 html{
     font-size: 62.5%;
+    overflow-x: hidden;
 }
 header{
     position: fixed;
@@ -210,14 +211,14 @@ header{
     width: calc(100% - 160px);
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    margin: 20px auto;
+    justify-content: space-evenly;
+    margin: 20px auto 0;
 }
 
 
 .container-member{
     width: 100px;
-    margin: 0 20px;
+    /* margin: 0 20px; */
     text-align: center;
     font-size: 1.4em;
     font-weight: 500;
@@ -293,7 +294,6 @@ input[type=radio]{
     z-index: 5;
     width: 100px;
     height: 100px;
-    margin: 0 20px;
     opacity: 0;
     cursor: pointer;
 }
