@@ -18,7 +18,8 @@ async function getAvatar(){
                 const inputRadio = document.createElement('input')
                 inputRadio.type = 'radio';
                 inputRadio.name = 'avatar';
-                inputRadio.id = 'avatar';
+                inputRadio.id = response.sprites.front_default;
+                inputRadio.value = response.sprites.front_default;
 
                 const article = document.createElement('article');
                 article.className = 'container-member';

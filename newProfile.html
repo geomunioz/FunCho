@@ -23,20 +23,30 @@
     <main class="main-principal">
         <div class="container-form__addProfile">
             <p>Crear nuevo perfil</p>
-            <form class="form__addProfile" action="">
-                <input class="input-name__addProfile" type="text" name="name" id="name" placeholder="Ingrese su nombre">
-                <input class="input-button__addProfile" type="submit" value="Crear">
+            <form id="form-newProfile" class="" action="./family.html">
+                <section class="form__addProfile">
+                    <input id="idCuenta" type="hidden" name="idCuenta" value="" >
+                    <input class="input-name__addProfile" type="text" name="name" id="name" placeholder="Ingrese su nombre">
+                    <input class="input-button__addProfile" type="submit" value="Crear" onclick="crearPerfil()">
+                </section>
+                <section class="container-avatars__newProfile">
+                    <p>Seleccionar Avatar</p>
+                    <div class="container-family">
+                        
+                    </div>
+                </section>
             </form>
         </div>
-
-        <section class="container-avatars">
-            <p>Seleccionar Avatar</p>
-            <form class="container-family" action="">
-                
-            </form>
-        </section>
     </main>
     <script src="https://kit.fontawesome.com/dfb52525f1.js" crossorigin="anonymous"></script>
     <script src="./js/clientPokeApi.js"></script>
+    <script>
+        const cuenta = localStorage.getItem('cuenta');
+        const list = JSON.parse(cuenta);
+
+        const idCuenta = document.getElementById('idCuenta');
+        idCuenta.value = list.idCuenta;
+    </script>
+    <script src="./js/client.js"></script>
 </body>
 </html>

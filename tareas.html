@@ -38,45 +38,99 @@
             </button>
         </div>
         <div class="list-activities">
-            <article class="content-activity">
-                <div class="content-activity__icon">
-                    <i class="fa-regular fa-square-check"></i>
-                </div>
-                <div class="content-activity__details">
-                    <p class="activity-details__name">Nombre de actividad</p>
-                    <p class="activity-details__points">Puntos: 50 pts</p>
-                </div>
-                <div class="content-activity__icon">
-                    <i class="fa-regular fa-add"></i>
-                </div>
-            </article>
-            <article class="content-activity">
-                <div class="content-activity__icon">
-                    <i class="fa-regular fa-square-check"></i>
-                </div>
-                <div class="content-activity__details">
-                    <p class="activity-details__name">Nombre de actividad</p>
-                    <p class="activity-details__points">Puntos: 50 pts</p>
-                </div>
-                <div class="content-activity__icon">
-                    <i class="fa-regular fa-add"></i>
-                </div>
-            </article>
-            <article class="content-activity">
-                <div class="content-activity__icon">
-                    <i class="fa-regular fa-square-check"></i>
-                </div>
-                <div class="content-activity__details">
-                    <p class="activity-details__name">Nombre de actividad</p>
-                    <p class="activity-details__points">Puntos: 50 pts</p>
-                </div>
-                <div class="content-activity__icon">
-                    <i class="fa-regular fa-add"></i>
-                </div>
-            </article>
+            
         </div>
     </main>
     <script src="https://kit.fontawesome.com/dfb52525f1.js" crossorigin="anonymous"></script>
     <script src="./js/clientWork.js"></script>
+    <script>
+        window.addEventListener('load', listarTareas);
+
+        function listarTareas(){
+
+            fetch('http://localhost:85/FunCho/API/Funcho/lista/tareas')
+            .then(respuesta => respuesta.json())
+            .then(response => {
+                console.log(response) 
+                console.log(response.length) //90
+                let container = document.getElementsByClassName('list-activities')[0];
+
+                for(var i = 0; i<response.length; i++){
+                    //Creacion de elementos
+                    const article = document.createElement('article');
+                    article.className = 'content-activity';
+
+                        const contentIcon =  document.createElement('div');
+                        contentIcon.className = 'content-activity__icon';
+
+                            const icon = document.createElement('i')
+                            icon.className = 'fa-regular fa-square-check';
+
+                        contentIcon.appendChild(icon);
+                        
+                        const contentActivity = document.createElement('div');
+                        contentActivity.className = 'content-activity__details';
+                        contentActivity.onclick = getDetailActivity('./activity.html?type=work&name='+response[i].idTarea+'&points='+response[i].puntos, response[i]);
+
+                            const p_title = document.createElement('p');
+                            p_title.className = 'activity-details__name';
+                            p_title.textContent = response[i].nombre;
+
+                            const p_points = document.createElement('p');
+                            p_points.className = 'activity-details__points';
+                            p_points.textContent = 'Puntos: '+response[i].puntos+' points' ;
+                        
+                        contentActivity.appendChild(p_title);
+                        contentActivity.appendChild(p_points);
+
+                        const contentIcon2 = document.createElement('div')
+                        contentIcon2.className = 'content-activity__icon';
+
+                            const icon2 = document.createElement('i');
+                            icon2.className = 'fa-regular fa-add';
+                            icon2.onclick = agregarTarea(response[i]);
+
+                        contentIcon2.appendChild(icon2);
+
+                    article.appendChild(contentIcon);
+                    article.appendChild(contentActivity);
+                    article.appendChild(contentIcon2);
+
+                    container.appendChild(article);
+                }
+            }).catch(err => console.error(err));
+        }
+
+        function getDetailActivity(link, recipe){
+            return function getDetail(){
+                window.location.href = link;
+            }
+        }
+
+        function agregarTarea(tarea){
+
+            return function agregar(){
+                const idProfile = localStorage.getItem('idIntegrante');
+
+                var formData = new FormData();
+                formData.append('idIntegrante', idProfile);
+                formData.append('idTarea', tarea.idTarea);
+                formData.append('type', 'tarea');
+
+                fetch('http://localhost:85/FunCho/API/Funcho/actividad/add',{
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(response =>{
+                    work = response;
+                    console.log(work);
+                })
+                .catch(err => console.error(err));
+
+                window.location.href = './principal.html';
+            }
+        }
+    </script>
 </body>
 </html>

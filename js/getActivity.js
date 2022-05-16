@@ -1,5 +1,6 @@
 import { getSport } from "./clientSport.js";
 import { getRecipe } from "./clientFood.js";
+import { getWork } from "./client.js";
 
 const valores = window.location.search;
 
@@ -38,6 +39,27 @@ if(tipoActividad==='sport'){
 
         picture.appendChild(img);
         activityContainer.appendChild(picture);
+
+}else if(tipoActividad==='work'){
+    var work = await getWork(id);
+    console.log(work);
+
+    const activityContainer = document.getElementsByClassName('activity-description')[0];
+
+        const title  = document.getElementsByClassName('title')[0];
+        title.textContent = work.nombre;
+
+        const textPoints = document.getElementsByClassName('points')[0];
+        textPoints.textContent = work.puntos+' pts'
+
+        const description = document.getElementById('description-detail');
+        description.textContent = 'Descripción:'
+
+            const li = document.createElement('li');
+            li.textContent = work.descripcion;
+            description.appendChild(li);
+
+        const contador = document.getElementsByClassName('activity-time')[0];
 
 }else if(tipoActividad==='recipe'){
     var recipe = await getRecipe(id);

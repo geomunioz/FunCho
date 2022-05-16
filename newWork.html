@@ -23,14 +23,16 @@
     <main class="main-principal">
         <p class="p-title">Crear nueva tarea</p>
         <section  class="main-content">
-            <form class="form-container" action="">
+            <form id="form-work" class="form-container" action="./tareas.html">
                 <input class="input-nameWork__add" type="text" name="nameWork" id="nameWork" placeholder="Nombre de tarea">
                 <textarea class="input-description__add" name="description" id="description" placeholder="Descripción" cols="25" rows="6"></textarea>
                 <input class="input-points__add" type="number" name="points" id="points" placeholder="Puntos ejemplo: 10">
-                <input class="input-button__login" type="submit" value="Agregar">
+                <input class="input-points__add" type="number" name="time" id="time" placeholder="Minutos: 10">
+                <input class="input-button__login" type="submit" value="Agregar" onclick="crearTarea()">
             </form>
         </section>
     </main>
     <script src="https://kit.fontawesome.com/dfb52525f1.js" crossorigin="anonymous"></script>
+    <script src="./js/client.js"></script>
 </body>
 </html>

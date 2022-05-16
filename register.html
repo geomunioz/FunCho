@@ -17,14 +17,15 @@
                 <img src="./assets/Logo.png" alt="Logo FunCho">
             </picture>
             <p class="p-title">Crear cuenta</p>
-            <form class="form-container" action="">
-                <input class="input-name__login" type="text" name="text" id="text" placeholder="Nombre(s)">
+            <form id="form-registro" class="form-container" action="./index.html">
+                <input class="input-name__login" type="text" name="name" id="text" placeholder="Nombre(s)">
                 <input class="input-lastName__login" type="text" name="lastName" id="LastName" placeholder="Apellido(s)">
                 <input class="input-email__login" type="email" name="email" id="email" placeholder="Correo electronico">
                 <input class="input-password__login" type="password" name="password" id=password" placeholder="Contraseña">
-                <input class="input-button__login" type="submit" value="Crear">
+                <input class="input-button__login" type="submit" value="Crear" onclick="addRegistro()">
             </form>
         </div>
     </main>
+    <script src="./js/client.js"></script>
 </body>
 </html>

@@ -1,64 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FunCho</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="./css/styles.css">
-</head>
-<body>
-    <header>
-        <nav class="nav-menu">
-            <picture class="nav-img__logo">
-                <img src="./assets/Logo.png" alt="Logo FunCho">
-            </picture>
-            <ul class="nav-menu__items">
-                <li><a href="principal.html" class="active-item"><i class="fa-solid fa-house"></i> Inicio</a></li>
-                <li><a href="tareas.html"><i class="fa-regular fa-square-check"></i> Tareas</a></li>
-                <li><a href="deporte.html"><i class="fa-solid fa-futbol"></i> Deporte</a></li>
-                <li><a href="food.html"><i class="fa-solid fa-apple-whole"></i> Comida</a></li>
-                <li><a href="ranking.html"><i class="fa-regular fa-star"></i> Clasificación</a></li>
-                <li><a href="editProfile.html"><i class="fa-regular fa-circle-user"></i> Perfil</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main class="main-principal">
-        <div class="container">
-            <section class="container-activities">
-                <p class="p-title">Actividades a realizar:</p>
-                <article class="content-activity">
-                    <div class="content-activity__icon">
-                        <i class="fa-regular fa-square-check"></i>
-                    </div>
-                    <div class="content-activity__details">
-                        <p class="activity-details__name">Nombre de actividad</p>
-                        <p class="activity-details__points">Puntos: 50 pts</p>
-                    </div>
-                </article>
-                <article class="content-activity">
-                    <div class="content-activity__icon">
-                        <i class="fa-regular fa-square-check"></i>
-                    </div>
-                    <div class="content-activity__details">
-                        <p class="activity-details__name">Nombre de actividad</p>
-                        <p class="activity-details__points">Puntos: 50 pts</p>
-                    </div>
-                </article>
-            </section>
-            <section>
-    
-            </section>
-        </div>
-    </main>
-    <script src="https://kit.fontawesome.com/dfb52525f1.js" crossorigin="anonymous"></script>
-    <script >
-        window.onload = getActividades;
+window.addEventListener('load', getActividades);
 
         function getActividades(){
             const idProfile = localStorage.getItem('idIntegrante');
@@ -142,6 +82,3 @@
                 window.location.href = link;
             }
         }
-    </script>
-</body>
-</html>

@@ -31,7 +31,7 @@ async function getAllRecipes(){
                 //Creacion de elementos
                 const article = document.createElement('article');
                 article.className = 'content-activity';
-                article.onclick = getDetailActivity('../activity.html?type=recipe&name='+response[i].id+'&points='+valPoints, response[i]);
+                
 
                     const contentIcon =  document.createElement('div');
                     contentIcon.className = 'content-activity__icon';
@@ -43,6 +43,7 @@ async function getAllRecipes(){
                     
                     const contentActivity = document.createElement('div');
                     contentActivity.className = 'content-activity__details';
+                    contentActivity.onclick = getDetailActivity('./activity.html?type=recipe&name='+response[i].id+'&points='+valPoints, response[i]);
 
                         const p_title = document.createElement('p');
                         p_title.className = 'activity-details__name';
@@ -60,6 +61,7 @@ async function getAllRecipes(){
 
                         const icon2 = document.createElement('i');
                         icon2.className = 'fa-regular fa-add';
+                        icon2.onclick = agregarTarea(response[i], valPoints);
 
                     contentIcon2.appendChild(icon2);
 
@@ -71,6 +73,52 @@ async function getAllRecipes(){
             }
         })
         .catch(err => console.error(err));
+}
+
+function agregarTarea(tarea, points){
+
+    return function agregar(){
+        //Agregar receta
+        agregarReceta(tarea, points);
+        const idProfile = localStorage.getItem('idIntegrante');
+
+        var formData = new FormData();
+        formData.append('idIntegrante', idProfile);
+        formData.append('idTarea', tarea.id);
+        formData.append('type', 'recipe');
+
+        fetch('http://localhost:85/FunCho/API/Funcho/actividad/add',{
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(response =>{
+            work = response;
+            console.log(work);
+        })
+        .catch(err => console.error(err));
+
+        window.location.href = './principal.html';
+    }
+}
+
+async function agregarReceta(receta, points){
+    var formData = new FormData();
+                formData.append('idReceta', receta.id);
+                formData.append('nombre', receta.title);
+                formData.append('ingredientes', receta.ingredients[0]);
+                formData.append('instrucciones', receta.instructions[0].text);
+                formData.append('puntos', points);
+
+                fetch('http://localhost:85/FunCho/API/Funcho/receta/add',{
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(response =>{
+                    console.log(response);
+                })
+                .catch(err => console.error(err));
 }
 
 async function getRecipe(idRecipe){

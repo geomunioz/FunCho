@@ -30,7 +30,7 @@ async function getAllExcersice(){
                 //Creacion de elementos
                 const article = document.createElement('article');
                 article.className = 'content-activity';
-                article.onclick = getDetailActivity('../activity.html?type=sport&name='+response[i].id+'&points=25');
+                
 
                     const contentIcon =  document.createElement('div');
                     contentIcon.className = 'content-activity__icon';
@@ -42,7 +42,7 @@ async function getAllExcersice(){
                     
                     const contentActivity = document.createElement('div');
                     contentActivity.className = 'content-activity__details';
-
+                    contentActivity.onclick = getDetailActivity('./activity.html?type=sport&name='+response[i].id+'&points=25');
                         const p_title = document.createElement('p');
                         p_title.className = 'activity-details__name';
                         p_title.textContent = response[i].name;
@@ -59,6 +59,7 @@ async function getAllExcersice(){
 
                         const icon2 = document.createElement('i');
                         icon2.className = 'fa-regular fa-add';
+                        icon2.onclick = agregarTarea(response[i]);
 
                     contentIcon2.appendChild(icon2);
 
@@ -70,6 +71,31 @@ async function getAllExcersice(){
             }
         })
         .catch(err => console.error(err));
+}
+
+function agregarTarea(tarea){
+
+    return function agregar(){
+        const idProfile = localStorage.getItem('idIntegrante');
+
+        var formData = new FormData();
+        formData.append('idIntegrante', idProfile);
+        formData.append('idTarea', tarea.id);
+        formData.append('type', 'sport');
+
+        fetch('http://localhost:85/FunCho/API/Funcho/actividad/add',{
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(response =>{
+            work = response;
+            console.log(work);
+        })
+        .catch(err => console.error(err));
+
+        window.location.href = './principal.html';
+    }
 }
 
 function getDetailActivity(link){

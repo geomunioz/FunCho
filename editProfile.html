@@ -26,20 +26,44 @@
     <main class="main-principal">
         <div class="container-form__addProfile">
             <p>Editar perfil</p>
-            <form class="form__addProfile" action="">
-                <input class="input-name__addProfile" type="text" name="name" id="name" value="Name">
-                <input class="input-button__addProfile" type="submit" value="Guardar">
+            <form id="form-editProfile" action="">
+                <section class="form__addProfile">
+                    <input type="hidden" name="methodHTTP" value="PUT">
+                    <input id="idCuenta" type="hidden" name="idCuenta" value="" >
+                    <input id="nameProfile" class="input-name__addProfile" type="text" name="name" id="name" value="Name">
+                    <input class="input-button__addProfile" type="submit" value="Guardar" onclick="editarPerfil()">
+                </section>
+                <section class="container-avatars__newProfile">
+                    <p>Seleccionar Avatar</p>
+                    <div class="container-family">
+                        
+                    </div>
+                </section>
             </form>
         </div>
-
-        <section class="container-avatars">
-            <p>Seleccionar Avatar</p>
-            <form class="container-family" action="">
-                
-            </form>
-        </section>
     </main>
     <script src="https://kit.fontawesome.com/dfb52525f1.js" crossorigin="anonymous"></script>
     <script src="./js/clientPokeApi.js"></script>
+    <script>
+        const idProfile = localStorage.getItem('idIntegrante');
+
+        const idCuenta = document.getElementById('idCuenta');
+        idCuenta.value = idProfile;
+
+        setTimeout( getIntegrante, 1000);
+
+        function getIntegrante(){
+            fetch('http://localhost:85/FunCho/API/Funcho/integrante/'+idProfile)
+            .then(respuesta => respuesta.json())
+            .then(response => {
+                const name = document.getElementById('nameProfile');
+                name.value = response.nombre; 
+
+                const avatar = document.getElementById(response.avatar);
+                avatar.checked = true;
+            }).catch(err => console.error(err));
+        }
+    </script>
+    <script src="./js/client.js"></script>
 </body>
 </html>

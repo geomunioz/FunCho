@@ -17,15 +17,16 @@
                 <img src="./assets/Logo.png" alt="Logo FunCho">
             </picture>
             <p class="p-title">Iniciar Sesión</p>
-            <form class="form-container" action="./family.html">
+            <form id="form-login" class="form-container" action="./family.html">
                 <input class="input-email__login" type="email" name="email" id="email" placeholder="Correo electronico">
                 <input class="input-password__login" type="password" name="password" id="password" placeholder="Contraseña">
-                <input class="input-button__login" type="submit" value="Iniciar Sesión">
+                <input class="input-button__login" type="submit" value="Iniciar Sesión" onclick="validarLogin()">
             </form>
             <div class="container-noRegister">
                 <p>¿Aun no tienes cuenta? <a href="./register.html">Registrate</a></p>
             </div>
         </div>
     </main>
+    <script src="./js/client.js"></script>
 </body>
 </html>

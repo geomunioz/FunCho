@@ -270,6 +270,11 @@ header{
     margin: 0 auto;
 }
 
+.container-avatars__newProfile{
+    width: 100%;
+    margin: 18px auto 0;
+}
+
 .container-form__addProfile p,
 .container-avatars p{
     font-size: 1.8em;
