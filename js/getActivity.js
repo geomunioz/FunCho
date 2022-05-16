@@ -1,6 +1,6 @@
 import { getSport } from "./clientSport.js";
 import { getRecipe } from "./clientFood.js";
-import { getWork } from "./client.js";
+// import { getWork } from "./client.js";
 
 const valores = window.location.search;
 
@@ -105,4 +105,73 @@ if(tipoActividad==='sport'){
 
         picture.appendChild(img);
         contador.appendChild(picture);
+}else if(tipoActividad==='recipe2'){
+    var recipe = await getReceta(id);
+    console.log(recipe);
+    const activityContainer = document.getElementsByClassName('activity-description')[0];
+
+        const title  = document.getElementsByClassName('title')[0];
+        title.textContent = recipe.nombre;
+
+        const textPoints = document.getElementsByClassName('points')[0];
+        textPoints.textContent = points+' pts'
+
+        const description = document.getElementById('description-detail');
+        description.textContent = 'Ingredientes:'
+
+            const li = document.createElement('li');
+            li.textContent = recipe.ingredientes;
+            description.appendChild(li);
+
+        const br = document.createElement('br');
+        description.appendChild(br);
+
+        const p = document.createElement('p')
+        p.textContent = 'Instrucciones:';
+
+        description.appendChild(p);
+
+            const li1 = document.createElement('li');
+            li1.textContent = recipe.instrucciones;
+            description.appendChild(li1);
+        
+
+        const contador = document.getElementsByClassName('activity-time')[0];
+
+        const picture = document.createElement('picture');
+        picture.className = 'description';
+
+        const img = document.createElement('img');
+        img.src = '#';
+
+        picture.appendChild(img);
+        contador.appendChild(picture);
+}
+
+async function getReceta(id){
+    let receta;
+    
+    await fetch('http://localhost:85/FunCho/API/Funcho/receta/'+id)
+        .then(response => response.json())
+        .then(response =>{
+            console.log(response);
+            receta = response;
+        })
+        .catch(err => console.error(err));
+
+    return receta;
+}
+
+async function getWork(id){
+    let work;
+    
+    await fetch('http://localhost:85/FunCho/API/Funcho/tarea/'+id)
+        .then(response => response.json())
+        .then(response =>{
+            work = response;
+            console.log(work);
+        })
+        .catch(err => console.error(err));
+
+    return work;
 }

@@ -35,31 +35,73 @@
                 <p>Pts</p>
             </div>
 
-            <article class="content-rank">
-                <picture class="content-rank__avatar">
-                    <img src="./assets/profile.png" alt="Avatar">
-                </picture>
-                <div class="content-rank__details">
-                    <p class="rank-details__name">Nombre de integrante</p>
-                </div>
-                <div class="content-rank__icon">
-                    <p>50</p>
-                </div>
-            </article>
-
-            <article class="content-rank">
-                <picture class="content-rank__avatar">
-                    <img src="./assets/profile.png" alt="Avatar">
-                </picture>
-                <div class="content-rank__details">
-                    <p class="rank-details__name">Nombre de integrante</p>
-                </div>
-                <div class="content-rank__icon">
-                    <p>50</p>
-                </div>
-            </article>
         </div>
     </main>
     <script src="https://kit.fontawesome.com/dfb52525f1.js" crossorigin="anonymous"></script>
+    <script>
+        function listarIntegrantes(){
+        const cuenta = localStorage.getItem('cuenta');
+        const list = JSON.parse(cuenta);
+        console.log(list.idCuenta);
+
+        fetch('http://localhost:85/FunCho/API/Funcho/listaOrden/'+list.idCuenta)
+        .then(respuesta => respuesta.json())
+        .then(response => {
+            console.log(response.length);
+            if(response.length>0){
+                const contenedor = document.getElementsByClassName('container-table')[0];
+
+                for(var i = 0; i<response.length; i++){
+                    const article = document.createElement('article') ;
+                    article.className = 'content-rank';
+
+                        const picture = document.createElement('picture');
+                        picture.className = 'content-rank__avatar';
+
+                            const img = document.createElement('img');
+                            img.src = response[i].avatar;
+                            img.alt = 'Perfil '+response[i].nombre;
+
+                        picture.appendChild(img);
+                        
+                        const div = document.createElement('div');
+                        div.className = 'content-rank__details';
+
+                        const p =  document.createElement('p');
+                        p.className = 'rank-details__name';
+                        p.textContent = response[i].nombre;
+
+                        div.appendChild(p);
+
+                        const div2 = document.createElement('div');
+                        div2.className = 'content-rank__icon';
+
+                        const p2 = document.createElement('p');
+                        p2.textContent = response[i].puntos;
+
+                        div2.appendChild(p2);
+
+                    article.appendChild(picture);
+                
+                    article.appendChild(div);
+                    article.appendChild(div2);
+                    contenedor.appendChild(article);
+                }
+            }
+        }).catch(err => console.error(err));
+}
+        window.onload = listarIntegrantes;
+
+        function getDetailActivity(link, idIntegrante){
+            return function getDetail(){
+                localStorage.setItem('idIntegrante', idIntegrante);
+                window.location.href = link;
+            }
+        }
+
+        function newProfile(){
+            window.location.href = './newProfile.html';
+        }
+    </script>
 </body>
 </html>

@@ -38,6 +38,15 @@
         return $all; 
     }
 
+    function listarOrden($link, $idCuenta){
+        $valor = mysqli_query($link, "SELECT * FROM integrantes WHERE integrantes.idCuenta='$idCuenta' ORDER BY puntos DESC");
+        $all = array();
+        while($fila = mysqli_fetch_array($valor)){
+            $all[] = $fila;
+        }
+        return $all; 
+    }
+
     function get_Integrante($link, $id){
         $valor = mysqli_query($link, "SELECT * FROM integrantes WHERE integrantes.idIntegrante='$id'");
         $all = mysqli_fetch_array($valor);
@@ -106,6 +115,32 @@
         return $all;
     }
 
+    function getReceta($link, $id){
+        $valor = mysqli_query($link, "SELECT * FROM recetas WHERE recetas.idReceta='$id'");
+        $all = mysqli_fetch_array($valor);
+        return $all;
+    }
+
+    function sumarPuntos($link, $puntos, $id){
+        if(mysqli_query($link, "UPDATE integrantes SET puntos = puntos + '$puntos' where integrantes.idIntegrante='$id'")){
+            $all = 'true';
+        }else{
+            $all = 'false';
+        }
+
+        return $all;
+    }
+
+    function eliminarActividad($link, $id, $idTarea)
+    {
+        if (mysqli_query($link, "DELETE FROM integrantesactividades WHERE integrantesactividades.idIntegrante='$id' and integrantesactividades.idTarea='$idTarea'")) {
+            $all = 'success';
+        }else{
+            $all = 'Not success';
+        }
+        return $all;
+    }
+
 
     
     //http://localhost:85/Pasteleria/API/bakery/
@@ -115,11 +150,17 @@
     }else if($_GET['peticion']=='listaActividades' && $_SERVER['REQUEST_METHOD'] == 'GET'){
         $resultado = listarActividades($conexion, $_GET['detalle']);
         echo json_encode($resultado);
+    }else if($_GET['peticion']=='listaOrden' && $_SERVER['REQUEST_METHOD'] == 'GET'){
+        $resultado = listarOrden($conexion, $_GET['detalle']);
+        echo json_encode($resultado);
     }else if($_GET['peticion']=='lista' && $_GET['detalle']=='tareas' && $_SERVER['REQUEST_METHOD'] == 'GET'){
         $resultado = listarTareas($conexion);
         echo json_encode($resultado);
     }else if($_GET['peticion']=='integrante' && $_SERVER['REQUEST_METHOD'] == 'GET'){
         $resultado = get_Integrante($conexion, $_GET['detalle']);
+        echo json_encode($resultado);
+    }else if($_GET['peticion']=='receta' && $_SERVER['REQUEST_METHOD'] == 'GET'){
+        $resultado = getReceta($conexion, $_GET['detalle']);
         echo json_encode($resultado);
     }else if($_GET['peticion']=='tarea' && $_SERVER['REQUEST_METHOD'] == 'GET'){
         $resultado = getTarea($conexion, $_GET['detalle']);
@@ -144,6 +185,12 @@
         echo json_encode($resultado);
     }else if($_GET['peticion']=='perfil' && $_POST['methodHTTP'] == 'PUT'){
         $resultado = editarPerfil($conexion, $_GET['detalle'], $_POST['name'], $_POST['avatar']);
+        echo json_encode($resultado);
+    }else if($_GET['peticion']=='sumarPuntos' && $_POST['methodHTTP'] == 'PUT'){
+        $resultado = sumarPuntos($conexion, $_POST['puntos'], $_GET['detalle']);
+        echo json_encode($resultado);
+    }else if($_GET['peticion']=='eliminar' && $_POST['methodHTTP'] == 'DELETE'){
+        $resultado = eliminarActividad($conexion, $_GET['detalle'], $_POST['idTarea']);
         echo json_encode($resultado);
     }else{
         header('HTTP/1.1 405 Method Not Allowed');
